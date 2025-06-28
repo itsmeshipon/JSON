@@ -1,0 +1,217 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2025-06-28 23:39:20",
+    "containerVersion": {
+        "path": "accounts/6266206631/containers/221351322/versions/0",
+        "accountId": "6266206631",
+        "containerId": "221351322",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/6266206631/containers/221351322",
+            "accountId": "6266206631",
+            "containerId": "221351322",
+            "name": "Test for Clients",
+            "publicId": "GTM-TZWXX6Q3",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1748616748741",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6266206631/containers/221351322/workspaces?apiLink=container",
+            "features": {
+                "supportUserPermissions": true,
+                "supportEnvironments": true,
+                "supportWorkspaces": true,
+                "supportGtagConfigs": false,
+                "supportBuiltInVariables": true,
+                "supportClients": false,
+                "supportFolders": true,
+                "supportTags": true,
+                "supportTemplates": true,
+                "supportTriggers": true,
+                "supportVariables": true,
+                "supportVersions": true,
+                "supportZones": true,
+                "supportTransformations": false
+            },
+            "tagIds": [
+                "GTM-TZWXX6Q3"
+            ]
+        },
+        "variable": [
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "variableId": "5",
+                "name": "Meta Cookie (fbp)",
+                "type": "k",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "decodeCookie",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "_fbp"
+                    }
+                ],
+                "fingerprint": "1749837859883",
+                "formatValue": {}
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "variableId": "6",
+                "name": "Meta Cookie (fbc)",
+                "type": "k",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "decodeCookie",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "_fbc"
+                    }
+                ],
+                "fingerprint": "1749837914503",
+                "formatValue": {}
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "variableId": "7",
+                "name": "event_time (cJS)",
+                "type": "jsm",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "javascript",
+                        "value": "function() {\n  return Math.round(new Date().getTime() / 1000);\n}\n"
+                    }
+                ],
+                "fingerprint": "1749838119351",
+                "formatValue": {}
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "variableId": "8",
+                "name": "external_id (cJS)",
+                "type": "jsm",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "javascript",
+                        "value": "function() { \n    function generateUUID() { \n        var d = new Date().getTime();\n        var d2 = (performance && performance.now && (performance.now()*1000)) || 0; \n        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n            var r = Math.random() * 16;\n            if(d > 0){ \n                r = (d + r)%16 | 0;\n                d = Math.floor(d/16);\n            } else { \n                r = (d2 + r)%16 | 0;\n                d2 = Math.floor(d2/16);\n            }\n            return (c==='x' ? r : (r&0x3|0x8)).toString(16);\n        });\n    }  \n    function setCookie(name, value, days) {\n        var expires = \"\";\n        if (days) {\n            var date = new Date();\n            date.setTime(date.getTime() + (days*24*60*60*1000));\n            expires = \"; expires=\" + date.toUTCString();\n        }\n        document.cookie = name + \"=\" + (value || \"\")  + expires + \"; path=/\";\n    }   \n    function getCookie(name) {\n        var nameEQ = name + \"=\";\n        var ca = document.cookie.split(';');\n        for(var i=0;i < ca.length;i++) {\n            var c = ca[i];\n            while (c.charAt(0)==' ') c = c.substring(1,c.length);\n            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);\n        }\n        return null;\n    }   \n    var urlParams = new URLSearchParams(window.location.search);\n    var externalIdFromUrl = urlParams.get('external_id');  \n    var externalIdFromCookie = getCookie('external_id');   \n    if (externalIdFromUrl && externalIdFromUrl !== '') {\n        setCookie('external_id', externalIdFromUrl, 365);\n        return externalIdFromUrl;\n    }  \n    if (externalIdFromCookie && externalIdFromCookie !== '') {\n        return externalIdFromCookie;\n    }  \n    var generatedUUID = generateUUID();\n    setCookie('external_id', generatedUUID, 365);\n    return generatedUUID;\n}"
+                    }
+                ],
+                "fingerprint": "1749838273061",
+                "formatValue": {}
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "variableId": "10",
+                "name": "event_id",
+                "type": "cvt_K8G73",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "useCustomEventCounter",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1749839013180",
+                "formatValue": {}
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "variableId": "11",
+                "name": "client_ip_address 🇯",
+                "type": "jsm",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "javascript",
+                        "value": "function() {\n  var ipAddress = '';\n  var xhr = new XMLHttpRequest();\n  xhr.open(\"GET\", \"https://api64.ipify.org?format=json\", false);  // Ensures IPv6\n  xhr.send(null);\n  if (xhr.status === 200) {\n    var response = JSON.parse(xhr.responseText);\n    ipAddress = response.ip;\n  }\n  return ipAddress;\n}\n"
+                    }
+                ],
+                "fingerprint": "1749986856787",
+                "formatValue": {}
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "variableId": "12",
+                "name": "server_url",
+                "type": "c",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "value",
+                        "value": "server url"
+                    }
+                ],
+                "fingerprint": "1749840062247",
+                "formatValue": {}
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "type": "PAGE_URL",
+                "name": "Page URL"
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "type": "PAGE_HOSTNAME",
+                "name": "Page Hostname"
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "type": "PAGE_PATH",
+                "name": "Page Path"
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "type": "REFERRER",
+                "name": "Referrer"
+            },
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "type": "EVENT",
+                "name": "Event"
+            }
+        ],
+        "fingerprint": "1751153960404",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6266206631/containers/221351322/versions/0?apiLink=version",
+        "customTemplate": [
+            {
+                "accountId": "6266206631",
+                "containerId": "221351322",
+                "templateId": "9",
+                "name": "Event Id",
+                "fingerprint": "1749838672890",
+                "templateData": "___TERMS_OF_SERVICE___\n\nBy creating or modifying this file you agree to Google Tag Manager's Community\nTemplate Gallery Developer Terms of Service available at\nhttps://developers.google.com/tag-manager/gallery-tos (or such other URL as\nGoogle may provide), as modified from time to time.\n\n\n___INFO___\n\n{\n  \"type\": \"MACRO\",\n  \"id\": \"cvt_K8G73\",\n  \"version\": 1,\n  \"displayName\": \"Event Id\",\n  \"description\": \"generates a unique event id for all gtm / dataLayer events - based on a random id for every page.\",\n  \"containerContexts\": [\n    \"WEB\"\n  ],\n  \"brand\": {\n    \"displayName\": \"mbaersch\",\n    \"id\": \"github.com_mbaersch\"\n  }\n}\n\n\n___TEMPLATE_PARAMETERS___\n\n[\n  {\n    \"type\": \"CHECKBOX\",\n    \"name\": \"useCustomEventCounter\",\n    \"checkboxText\": \"Custom Event Counter\",\n    \"simpleValueType\": true,\n    \"help\": \"The result will use gtm.uniqueEventId from the dataLayer to differentiate separate events on the same page. If that does not fit your triggering plan, you can use different event id variables for every event type and add your own counter. \\n\\nExample: separate event id for a purchase using the transaction id as unique counter.\"\n  },\n  {\n    \"type\": \"TEXT\",\n    \"name\": \"customEventCounter\",\n    \"displayName\": \"\",\n    \"simpleValueType\": true,\n    \"valueValidators\": [\n      {\n        \"type\": \"NON_EMPTY\"\n      }\n    ],\n    \"enablingConditions\": [\n      {\n        \"paramName\": \"useCustomEventCounter\",\n        \"paramValue\": true,\n        \"type\": \"EQUALS\"\n      }\n    ]\n  }\n]\n\n\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\nconst copyFromDataLayer = require('copyFromDataLayer');\nconst setInWindow = require('setInWindow');\nconst copyFromWindow = require('copyFromWindow');\nconst getTimestampMillis = require('getTimestampMillis');\nconst generateRandom = require('generateRandom');\nvar eventId = copyFromWindow('_randomPageId');\nif (!eventId) {\n  eventId = getTimestampMillis() + '.' + generateRandom(100000, 999999);\n  setInWindow('_randomPageId', eventId, false);\n}\n\nvar uniqueEventCounter = (data.useCustomEventCounter === true) ? data.customEventCounter : copyFromDataLayer('gtm.uniqueEventId') || '0';\n\nreturn eventId + \".\" + uniqueEventCounter;\n\n\n___WEB_PERMISSIONS___\n\n[\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"access_globals\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keys\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"execute\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"_randomPageId\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"read_data_layer\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keyPatterns\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 1,\n                \"string\": \"gtm.uniqueEventId\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  }\n]\n\n\n___TESTS___\n\nscenarios: []\n\n\n___NOTES___\n\nCreated on 22.4.2022, 10:03:29\n\n\n",
+                "galleryReference": {
+                    "host": "github.com",
+                    "owner": "mbaersch",
+                    "repository": "event-id",
+                    "version": "1b513f75db715689cc7da724c495c311d29b3354",
+                    "signature": "41b8cdb9211ea4de0814d836cd4c13498fced3f14f0e3729595f392fac2ac4f5",
+                    "galleryTemplateId": "K8G73"
+                }
+            }
+        ]
+    }
+}
