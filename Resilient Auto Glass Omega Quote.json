@@ -1,0 +1,429 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-10-19 20:40:00",
+  "containerVersion": {
+    "path": "accounts/0/containers/0/versions/0",
+    "accountId": "0",
+    "containerId": "0",
+    "containerVersionId": "0",
+    "container": {
+      "path": "accounts/0/containers/0",
+      "accountId": "0",
+      "containerId": "0",
+      "name": "resilientautoglass.com",
+      "publicId": "GTM-T8S9RCFV",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "0",
+      "tagManagerUrl": "",
+      "tagIds": [
+        "GTM-T8S9RCFV"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "1",
+        "name": "cHTML - Omega Web Quoter listener -> dataLayer",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n/*\n * Resilient Auto Glass: Omega EDI Web Quoter -> dataLayer bridge (GTM-only)\n * The quoter runs in a cross-origin iframe (resilient.omegaedi.com) and postMessages JSON\n * strings to the parent page, e.g. {\"event\":\"click\",\"lead_stage\":\"QuoteRequested\",\"lead_email\":\"...\"}\n * (payload keys taken from the live GTM-T8S9RCFV v19 setup; confirm once in Preview).\n * This listener:\n *   - accepts messages only from *.omegaedi.com (the old listener had no origin check),\n *   - pushes omega_lead_stage once per new lead_stage (funnel / future conversions),\n *   - pushes quote_request_success ONCE per lead when lead_stage reaches QuoteRequested,\n *     with user_data for Enhanced Conversions. Later clicks in the quoter (scheduling etc.)\n *     still carry lead_stage=QuoteRequested, so the dedup guard matters.\n * Fire on: Initialization - All Pages.\n */\n(function () {\n  if (window.__ragOmegaListener) return;\n  window.__ragOmegaListener = true;\n\n  var ORIGIN_RE = /^https:\\/\\/([a-z0-9-]+\\.)*omegaedi\\.com$/i;\n  var SUCCESS_RE = /QuoteRequested/i;\n  var STORE_KEY = 'rag_omega_quote_tracked';\n  var lastStage = '';\n  window.dataLayer = window.dataLayer || [];\n\n  function str(v) { return v == null ? '' : String(v).replace(/^\\s+|\\s+$/g, ''); }\n  function pick(o, keys) {\n    for (var i = 0; i < keys.length; i++) { if (o[keys[i]] != null && str(o[keys[i]]) !== '') return str(o[keys[i]]); }\n    return '';\n  }\n  function email(v) { v = str(v).toLowerCase(); return /^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/.test(v) ? v : ''; }\n  function phoneE164(p) {\n    p = str(p).replace(/[^\\d+]/g, '');\n    if (!p) return '';\n    if (p.charAt(0) !== '+') {\n      if (p.length === 10) p = '+1' + p;                                   // US default\n      else if (p.length === 11 && p.charAt(0) === '1') p = '+' + p;\n      else return '';\n    }\n    return /^\\+\\d{10,15}$/.test(p) ? p : '';\n  }\n  function key(em) { return em || 'anon'; }\n  function alreadyTracked(k) {\n    try {\n      var s = JSON.parse(sessionStorage.getItem(STORE_KEY) || '{}');\n      if (s[k] && (Date.now() - s[k]) < 30 * 60 * 1000) return true;    // same lead within 30 min\n      s[k] = Date.now();\n      sessionStorage.setItem(STORE_KEY, JSON.stringify(s));\n    } catch (e) {\n      if (window['__ragTracked_' + k]) return true;\n      window['__ragTracked_' + k] = true;\n    }\n    return false;\n  }\n  function formGuid(source) {\n    var frames = document.querySelectorAll('iframe[id^=\"omegaWebQuoter_\"]');\n    for (var i = 0; i < frames.length; i++) {\n      if (frames[i].contentWindow === source) return frames[i].id.replace('omegaWebQuoter_', '');\n    }\n    return frames.length ? frames[0].id.replace('omegaWebQuoter_', '') : '';\n  }\n\n  window.addEventListener('message', function (e) {\n    if (!ORIGIN_RE.test(e.origin || '')) return;\n    var d = e.data;\n    if (typeof d === 'string') { try { d = JSON.parse(d); } catch (err) { return; } }\n    if (!d || typeof d !== 'object') return;\n\n    var stage = pick(d, ['lead_stage', 'leadStage', 'stage']);\n    if (!stage || stage === lastStage) return;\n    lastStage = stage;\n\n    var em = email(pick(d, ['lead_email', 'email']));\n    var ph = phoneE164(pick(d, ['lead_phone', 'lead_phone_number', 'phone', 'phone_number']));\n    var fid = formGuid(e.source);\n\n    window.dataLayer.push({ event: 'omega_lead_stage', lead_stage: stage, form_id: fid, form_provider: 'omega_web_quoter' });\n\n    if (SUCCESS_RE.test(stage) && !alreadyTracked(key(em))) {\n      window.dataLayer.push({ user_data: null });\n      window.dataLayer.push({\n        event: 'quote_request_success',\n        lead_stage: stage,\n        form_id: fid,\n        form_name: 'Get a Quote (Omega Web Quoter)',\n        form_provider: 'omega_web_quoter',\n        event_id: 'quote_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10),\n        user_data: { email: em || undefined, phone_number: ph || undefined }\n      });\n    }\n  }, false);\n})();\n</script>\n"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "2",
+        "name": "Google Tag - Google Ads (AW-16532998709)",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "AW-{{CONST - Ads Conversion ID}}"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "3",
+        "name": "Conversion Linker - Omega Quote",
+        "type": "gclidw",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableCrossDomain",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableUrlPassthrough",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableCookieOverrides",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "4",
+        "name": "Google Ads - Conversion - Get a Quote (Omega)",
+        "type": "awct",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableNewCustomerReporting",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableConversionLinker",
+            "value": "true"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableProductReporting",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableEnhancedConversion",
+            "value": "true"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "cssProvidedEnhancedConversionValue",
+            "value": "{{UPD - Quote Lead (Enhanced Conversions)}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionCookiePrefix",
+            "value": "_gcl"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableShippingData",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionId",
+            "value": "{{CONST - Ads Conversion ID}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionLabel",
+            "value": "{{CONST - Ads Conversion Label - Get a Quote}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "orderId",
+            "value": "{{DLV - event_id}}"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "rdp",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "101"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "triggerId": "101",
+        "name": "CE - quote_request_success",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "quote_request_success"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "1",
+        "name": "CONST - Ads Conversion ID",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "16532998709"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "2",
+        "name": "CONST - Ads Conversion Label - Get a Quote",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "2GR6CLaqqN8aELWUxss9"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "3",
+        "name": "DLV - event_id",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "event_id"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "4",
+        "name": "DLV - lead_stage",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "lead_stage"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "5",
+        "name": "DLV - form_id",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "form_id"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "6",
+        "name": "DLV - user_data.email",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "user_data.email"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "7",
+        "name": "DLV - user_data.phone_number",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "user_data.phone_number"
+          }
+        ],
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "8",
+        "name": "UPD - Quote Lead (Enhanced Conversions)",
+        "type": "awec",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "mode",
+            "value": "MANUAL"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "email",
+            "value": "{{DLV - user_data.email}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "phone_number",
+            "value": "{{DLV - user_data.phone_number}}"
+          }
+        ],
+        "formatValue": {}
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "REFERRER",
+        "name": "Referrer"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "EVENT",
+        "name": "Event"
+      }
+    ],
+    "fingerprint": "0"
+  }
+}
